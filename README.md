@@ -32,7 +32,7 @@ jobs:
 
       - name: Release Compatibility Check
         id: backwards_compatible
-        uses: ./.github/github-actions/codepush-backwards-compatibility-check
+        uses: ALJAZEERAPLUS/codepush-backwards-compatibility-check-action@v1.0
         with: 
           before_commit_sha: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event_name == 'push' && github.event.before }}
           after_commit_sha: ${{ github.sha }}
