@@ -1,0 +1,42 @@
+name: "CodePush Backwards Compatibility Check Action"
+description: "Actions responsible to validate if the backwards compatibility (based on the git SHA differentiation)."
+author: "Victor Hugo dos Santos"
+inputs:
+  before_commit_sha:
+    description: "The SHA of the commit before the merge"
+    required: true
+  after_commit_sha:
+    description: "The SHA of the commit after the merge"
+    required: true
+  package_json_path:
+    description: "The path to the package.json file"
+    required: false
+    default: "package.json"
+  android_path:
+    description: "The path to the Android project"
+    required: false
+    default: "android/"
+  ios_path:
+    description: "The path to the iOS project"
+    required: true
+    default: "ios/"
+  yarn_lock_path:
+    description: "The path to the yarn.lock file"
+    required: false
+    default: "yarn.lock"
+outputs:
+  is_backwards_compatible:
+    description: "A boolean indicating if the deployment is backwards compatible"
+branding:
+  icon: upload-cloud
+  color: purple
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.before_commit_sha }}
+    - ${{ inputs.after_commit_sha }}
+    - ${{ inputs.package_json_path }}
+    - ${{ inputs.android_path }}
+    - ${{ inputs.ios_path }}
+    - ${{ inputs.yarn_lock_path }}
